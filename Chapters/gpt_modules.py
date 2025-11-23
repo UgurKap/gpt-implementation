@@ -1,7 +1,7 @@
+# From Chapter 4
 import torch
 from torch import nn
 from mha import MultiHeadAttention
-
 
 class LayerNorm(nn.Module):
     def __init__(self, emb_dim):
@@ -15,8 +15,7 @@ class LayerNorm(nn.Module):
         var = x.var(dim=-1, keepdim=True, unbiased=False)
         norm_x = (x - mean) / torch.sqrt(var + self.eps)
         return self.scale * norm_x + self.shift
-
-
+    
 class GELU(nn.Module):
     def __init__(self):
         super(GELU, self).__init__()
@@ -33,8 +32,7 @@ class GELU(nn.Module):
                 )
             )
         )
-
-
+    
 class FeedForward(nn.Module):
     def __init__(self, cfg):
         super(FeedForward, self).__init__()
@@ -46,18 +44,17 @@ class FeedForward(nn.Module):
 
     def forward(self, x):
         return self.layers(x)
-
-
+    
 class TransformerBlock(nn.Module):
     def __init__(self, cfg):
         super(TransformerBlock, self).__init__()
         self.att = MultiHeadAttention(
-            d_in=cfg["emb_dim"],
-            d_out=cfg["emb_dim"],
+            d_in = cfg["emb_dim"],
+            d_out = cfg["emb_dim"],
             context_length=cfg["context_length"],
             num_heads=cfg["n_heads"],
             dropout=cfg.get("drop_rate_mha", cfg["drop_rate"]),
-            qkv_bias=cfg["qkv_bias"],
+            qkv_bias=cfg["qkv_bias"]
         )
         self.ff = FeedForward(cfg)
         self.norm1 = LayerNorm(cfg["emb_dim"])
@@ -65,39 +62,30 @@ class TransformerBlock(nn.Module):
         self.drop_shortcut = nn.Dropout(cfg.get("drop_rate_ff", cfg["drop_rate"]))
 
     def forward(self, x):
-        shortcut = x  # Remember the original input
-        x = self.norm1(x)  # Apply the first LayerNorm
-        x = self.att(x)  # Apply causal multi-head attention
-        x = self.drop_shortcut(x)  # Apply dropout to the context vectors
-        x = x + shortcut  # Skip connection by re-adding the original input
+        shortcut = x # Remember the original input
+        x = self.norm1(x) # Apply the first LayerNorm
+        x = self.att(x) # Apply causal multi-head attention
+        x = self.drop_shortcut(x) # Apply dropout to the context vectors
+        x = x + shortcut # Skip connection by re-adding the original input
 
-        shortcut = x  # Another skip connection anchor
-        x = self.norm2(x)  # LayerNorm
-        x = self.ff(x)  # Feedforward with GELU
-        x = self.drop_shortcut(x)  # Apply dropout
-        x = x + shortcut  # Skip connection
+        shortcut = x # Another skip connection anchor
+        x = self.norm2(x) # LayerNorm
+        x = self.ff(x) # Feedforward with GELU
+        x = self.drop_shortcut(x) # Apply dropout
+        x = x + shortcut # Skip connection
         return x
-
-
+    
 class GPTModel(nn.Module):
     def __init__(self, cfg):
         super(GPTModel, self).__init__()
-        self.tok_emb = nn.Embedding(
-            num_embeddings=cfg["vocab_size"], embedding_dim=cfg["emb_dim"]
-        )
-        self.pos_emb = nn.Embedding(
-            num_embeddings=cfg["context_length"], embedding_dim=cfg["emb_dim"]
-        )
+        self.tok_emb = nn.Embedding(num_embeddings=cfg["vocab_size"], embedding_dim=cfg["emb_dim"])
+        self.pos_emb = nn.Embedding(num_embeddings=cfg["context_length"], embedding_dim=cfg["emb_dim"])
         self.drop_emb = nn.Dropout(cfg.get("drop_rate_emb", cfg["drop_rate"]))
 
-        self.trf_blocks = nn.Sequential(
-            *[TransformerBlock(cfg) for _ in range(cfg["n_layers"])]
-        )
+        self.trf_blocks = nn.Sequential(*[TransformerBlock(cfg) for _ in range(cfg["n_layers"])])
 
         self.final_norm = LayerNorm(cfg["emb_dim"])
-        self.out_head = nn.Linear(
-            in_features=cfg["emb_dim"], out_features=cfg["vocab_size"], bias=False
-        )
+        self.out_head = nn.Linear(in_features=cfg["emb_dim"], out_features=cfg["vocab_size"], bias=False)
 
     def forward(self, in_idx):
         batch_size, seq_len = in_idx.shape
