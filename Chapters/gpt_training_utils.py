@@ -131,7 +131,7 @@ def generate(
         logits = logits / (temperature + 1e-6)
         probs = torch.softmax(logits, dim=-1)
         idx_next = torch.multinomial(probs, num_samples=1)
-        if idx_next == eos_id:
+        if idx_next.item() == eos_id:
             break
         idx = torch.cat((idx, idx_next), dim=1)
     return idx
