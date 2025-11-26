@@ -104,7 +104,7 @@ def train_model_simple(
                 track_tokens_seen.append(tokens_seen)
                 print(
                     f"Ep {epoch + 1} (Step {global_step:06d}): "
-                    f"Train loss {train_loss:.3f}"
+                    f"Train loss {train_loss:.3f} "
                     f"Val loss {val_loss:.3f}"
                 )
 
