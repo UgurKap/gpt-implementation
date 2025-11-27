@@ -48,8 +48,8 @@ def evaluate_model(model, train_loader, val_loader, device, eval_iter):
             train_loader, model, device, num_batches=eval_iter
         )
         val_loss = calc_loss_loader(val_loader, model, device, num_batches=eval_iter)
-        model.train()
-        return train_loss, val_loss
+    model.train()
+    return train_loss, val_loss
 
 
 def generate_and_print_sample(model, tokenizer, device, start_context):
