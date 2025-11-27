@@ -104,7 +104,7 @@ def train_model_simple(
                 track_tokens_seen.append(tokens_seen)
                 print(
                     f"Ep {epoch + 1} (Step {global_step:06d}): "
-                    f"Train loss {train_loss:.3f}"
+                    f"Train loss {train_loss:.3f} "
                     f"Val loss {val_loss:.3f}"
                 )
 
@@ -131,7 +131,7 @@ def generate(
         logits = logits / (temperature + 1e-6)
         probs = torch.softmax(logits, dim=-1)
         idx_next = torch.multinomial(probs, num_samples=1)
-        if idx_next == eos_id:
+        if idx_next.item() == eos_id:
             break
         idx = torch.cat((idx, idx_next), dim=1)
     return idx
