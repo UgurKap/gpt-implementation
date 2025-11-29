@@ -1,5 +1,6 @@
 
 import numpy as np
+import torch
 
 def assign(left, right):
     if left.shape != right.shape:
