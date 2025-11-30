@@ -1,0 +1,20 @@
+LLMs from Scratch - Personal Learning Repository
+Copyright 2025 Uğur Ali Kaplan
+
+This repository contains implementations and experiments based on the book
+"Build a Large Language Model (From Scratch)" by Sebastian Raschka, Ph.D.
+
+Portions of this code are derived from or inspired by the official book repository:
+https://github.com/rasbt/LLMs-from-scratch
+Copyright Sebastian Raschka
+Licensed under the Apache License, Version 2.0
+
+Original Book Information:
+- Title: Build a Large Language Model (From Scratch)
+- Author: Sebastian Raschka, Ph.D.
+- Publisher: Manning Publications
+- ISBN: 9781633437166
+- Website: https://sebastianraschka.com/llms-from-scratch/
+
+This derivative work is also licensed under the Apache License, Version 2.0.
+See the LICENSE file for the full license text.
