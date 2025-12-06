@@ -106,6 +106,6 @@ This repository is shared for educational purposes. The original book and code a
 
 ## Acknowledgments
 
-I originally made Claude Code write this README section, and I feel like it feels a bit fake to make Claude write "Special thanks ...". So, I decided to at least edit this section.  
+I originally made Claude Code write the README, and I feel like it feels a bit fake to make Claude write "Special thanks ...". So, I decided to at least edit the acknowledgements section.
   
 I would like to thank Sebastian Raschka for preparing such a good learning resource. Because I was mostly dealing with the production side of ML recently, and/or dealing with things I understand better (e.g., uncertainty estimation), I felt a bit left behind in what has happened in the NLP field and to be honest, also got a bit intimidated. Going through the whole implementation of GPT-2, and also doing the exercises made me understand the decoder-only models better, and I also realized that I was not as far behind as I originally thought. Most of the new developments tend to be "take GPT-2, but instead do this in that layer", which makes understanding newer developments much easier. Stripping complicated topics such as this into its barebones and making it understandable is a talent Raschka clearly possesses.
