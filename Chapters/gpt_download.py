@@ -24,9 +24,13 @@ def download_and_load_gpt2(model_size, models_dir):
     base_url = "https://openaipublic.blob.core.windows.net/gpt-2/models"
     backup_base_url = "https://f001.backblazeb2.com/file/LLMs-from-scratch/gpt2"
     filenames = [
-        "checkpoint", "encoder.json", "hparams.json",
-        "model.ckpt.data-00000-of-00001", "model.ckpt.index",
-        "model.ckpt.meta", "vocab.bpe"
+        "checkpoint",
+        "encoder.json",
+        "hparams.json",
+        "model.ckpt.data-00000-of-00001",
+        "model.ckpt.index",
+        "model.ckpt.meta",
+        "vocab.bpe",
     ]
 
     # Download files
@@ -63,7 +67,9 @@ def download_file(url, destination, backup_url=None):
 
         block_size = 1024  # 1 KB
         desc = os.path.basename(download_url)
-        with tqdm(total=file_size, unit="iB", unit_scale=True, desc=desc) as progress_bar:
+        with tqdm(
+            total=file_size, unit="iB", unit_scale=True, desc=desc
+        ) as progress_bar:
             with open(destination, "wb") as file:
                 for chunk in response.iter_content(chunk_size=block_size):
                     if chunk:
