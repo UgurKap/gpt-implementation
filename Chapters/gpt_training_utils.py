@@ -1,4 +1,6 @@
 # From chapter 5
+import math
+
 import torch
 from gpt_modules import generate_text_simple
 
@@ -136,7 +138,6 @@ def generate(
         idx = torch.cat((idx, idx_next), dim=1)
     return idx
 
-import math
 
 def train_model_with_bells_and_whistles(model, train_loader, val_loader, optimizer, device, n_epochs, eval_freq, eval_iter, start_context, tokenizer, warmup_steps, initial_lr=3e-5, min_lr=1e-6):
     train_losses, val_losses, track_tokens_seen, track_lrs = [], [], [], []
