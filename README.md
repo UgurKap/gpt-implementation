@@ -24,7 +24,11 @@ This is a learning-focused repository where I've implemented the concepts from t
 │   ├── Chapter6.ipynb        # Fine-tuning for classification
 │   ├── Chapter7.ipynb        # Instruction fine-tuning
 │   ├── Exercise_6_*.ipynb    # Chapter 6 exercises
-│   └── bells_and_whistles.ipynb  # Additional experiments
+│   ├── bells_and_whistles.ipynb       # Advanced training strategies (Appendix D)
+│   ├── lora_classification.ipynb      # LoRA for classification (Appendix E)
+│   ├── lora_instruction.ipynb         # LoRA for instruction fine-tuning
+│   ├── alpaca_finetuning.ipynb        # Fine-tuning on Alpaca dataset (52K examples)
+│   └── LLM-as-a-judge.ipynb           # Model evaluation using LLM-as-a-judge
 ├── data/                      # Training and test data
 ├── models/                    # Saved model checkpoints
 └── *.py                       # Helper modules and utilities
@@ -38,6 +42,16 @@ This is a learning-focused repository where I've implemented the concepts from t
 - **Chapter 5**: Pretraining on unlabeled data
 - **Chapter 6**: Fine-tuning for classification tasks
 - **Chapter 7**: Fine-tuning for instruction following
+- **Appendix D**: Advanced training strategies (gradient clipping, cosine decay, learning rate warmup)
+- **Appendix E**: Parameter-efficient fine-tuning with LoRA
+
+## Additional Experiments
+
+Beyond the main chapters, this repository includes additional experiments and implementations:
+
+- **LoRA Fine-tuning**: Implementation of Low-Rank Adaptation (LoRA) for both classification and instruction fine-tuning tasks, demonstrating parameter-efficient training methods
+- **Alpaca Dataset Fine-tuning**: Fine-tuning experiments on the larger Stanford Alpaca dataset (52K examples) with comparisons between full fine-tuning and LoRA approaches
+- **LLM-as-a-Judge Evaluation**: Automated model evaluation using Claude Haiku 4.5 to score model responses, comparing different fine-tuning approaches and prompt styles
 
 ## Original Book & Resources
 
